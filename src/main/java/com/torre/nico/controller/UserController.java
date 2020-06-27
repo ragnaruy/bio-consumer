@@ -19,9 +19,8 @@ public class UserController {
     @Autowired
     private TorreService torreService;
 
-    @GetMapping("search-developers")
-    public ResponseEntity<List<UserPreviewResp>> searchDeveloper(@RequestParam(name = "name") String userName) {
-
-        return new ResponseEntity<>(torreService.search(userName), HttpStatus.OK);
+    @GetMapping("/search-developers")
+    public ResponseEntity<List<UserPreviewResp>> searchDeveloper(@RequestParam(name = "searchName") String searchName) {
+        return new ResponseEntity<>(torreService.search(searchName, 0), HttpStatus.OK);
     }
 }
