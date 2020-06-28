@@ -4,20 +4,19 @@ import com.torre.nico.controller.response.UserPreviewResp;
 import com.torre.nico.util.JsonUtil;
 import com.torre.nico.util.SearchBodySearchUtil;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
-import javax.json.JsonReader;
-import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +32,8 @@ public class TorreService {
 
     private final RestTemplate restTemplate = new RestTemplate();
 
+    @Cacheable("addresses")
+    @Scheduled(fixedDelay = 30000)
     public List<UserPreviewResp> search(String searchName, int page) {
         if (StringUtils.isEmpty(searchName)) {
             return new ArrayList<>();
