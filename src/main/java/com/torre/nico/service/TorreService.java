@@ -69,7 +69,7 @@ public class TorreService {
             userPreviewResp.setUsername(userJson.getString("username"));
             userPreviewResp.setPictureUrl(JsonUtil.getString(userJson, "picture"));
             userPreviewResp.setJobTitle(userJson.getString("professionalHeadline"));
-            userPreviewResp.setLocation(userJson.getString("locationName"));
+            userPreviewResp.setLocation((JsonUtil.getString(userJson, "locationName")));
             respList.add(userPreviewResp);
         }
         return respList;
